@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ticketManager", "ticketManager\ticketManager.csproj", "{5A40359B-B7B0-479C-A424-0CFC61CAD74F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{16EAD381-FB61-489E-A8D6-E66C2DC5D79F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A40359B-B7B0-479C-A424-0CFC61CAD74F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A40359B-B7B0-479C-A424-0CFC61CAD74F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A40359B-B7B0-479C-A424-0CFC61CAD74F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A40359B-B7B0-479C-A424-0CFC61CAD74F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16EAD381-FB61-489E-A8D6-E66C2DC5D79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16EAD381-FB61-489E-A8D6-E66C2DC5D79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16EAD381-FB61-489E-A8D6-E66C2DC5D79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16EAD381-FB61-489E-A8D6-E66C2DC5D79F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33B8C810-25A5-4B79-A79D-14FA71FC1CDE}
+	EndGlobalSection
+EndGlobal
