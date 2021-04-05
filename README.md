@@ -1,5 +1,5 @@
 # ticketManager
-**(Tested and works fine for me)**
+**(Tested in different machine)**
 The website is connected to the Azure SQL server. As a result, you have to modify the SQL connection configuration to connect to your local DB.
 To run this project:
 - import **ticketMDB.bacpac** to your sql server. **(updated)**
