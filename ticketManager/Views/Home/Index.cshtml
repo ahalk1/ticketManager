@@ -1,18 +1,24 @@
-﻿@model IEnumerable<ticketManager.Models.Ticket>
+﻿@model ticketManager.Models.Ticket
 @{
     ViewBag.Title = "Main Page";
 }
 
 
-<div class="container">
+<div class="container col-md-10">
     <br />
     <div class="row ">
         <div class="col-md-12">
             <div id="PlaceHolderHere"></div>
 
-            <div class="col-auto">
-                <button class="btn btn-success pull-right" data-toggle="modal" data-target="#addTicket" onclick="/Home/NewTicket">Create Ticket</button>
-            </div>
+
+            @if (!this.User.IsInRole("Manager"))
+            {
+                <div class="col-auto">
+                    <button class="btn btn-success pull-right" data-toggle="modal" data-target="#addTicket" onclick="/Home/NewTicket">Create</button>
+                </div>
+            }
+
+
 
             <!-- modal form for creating new ticket-->
             <div class="modal fade" id="addTicket" tabindex="-1">
@@ -21,28 +27,10 @@
 
 
                         <div class="modal-body">
-                            <h2>Uncomplete please move to create new ticket page</h2>
-                            @Html.ActionLink("Create Ticket page", "NewTicket", "Home", new { @class = "btn btn-primary btn-large" })
-
-
-                            @*<form action="Create">
-                                    <div class="form-group">
-                                        <label for="inputTitle">Title:</label>
-                                        <input type="text" id="inputTitle" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputDiscription">Discription:</label>
-
-                                        <textarea id="inputDiscription" class="form-control"></textarea>
-                                    </div>
-                                </form>*@
+                            @Html.Partial("_NewTicketPart")
                         </div>
 
-                        <div class="modal-footer">
-
-                            @*<button type="button" class="btn btn-success" data-save="modal"> Submit</button>*@
-                            <button type="button" class="btn" data-dismiss="modal"> Cancel</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -50,98 +38,16 @@
     </div>
     <br />
     <!-- ticket table -->
-    @if (!Model.Any())
+    @if (false)
     {
-        <h3> No Ticket To Show </h3>
+        <h3>NO RECORD </h3>
     }
-            else
-            {
-                    <table class="table table-bordered">
-                        <tr style="background:#d6d6d6">
-                            <th>
-                                <p>ID</p>
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Title)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Description)
-                            </th>
+    else
+    {
+        
+        Html.RenderAction("listOfTicket", "Home");
+    }
+    
 
-                            @if (!Model.First().addBy.Equals("1"))
-                            {
-                                <th>
-                                    <p>Employee Name</p>
-                                </th>
-                            }
-                            <th>
-                                @Html.DisplayNameFor(model => model.Status)
-                            </th>
-                            @if (!Model.First().addBy.Equals("1"))
-                            {
-                                <th></th>
-                            }
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Title)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                @if (!item.addBy.Equals("1"))
-                                {
-                                    <td>
-
-                                        @Html.DisplayFor(modelItem => item.addBy)
-                                    </td>
-                                }
-                                <td>
-
-                                    @if (@item.Status == 2)
-                                    {
-                                        <p style="color:red">reject</p>
-                                    }
-                                    else
-                                    {
-                                        if (@item.Status == 1)
-                                        {
-                                            <p style="color:forestgreen">Approved</p>
-                                        }
-                                        else
-                                        {
-                                            <p>Sent</p>
-                                        }
-                                    }
-
-
-                                </td>
-                                @if (!item.addBy.Equals("1"))
-                                {
-                                    <td>
-
-                                        @if (@item.Status == 0)
-                                        {
-
-
-                                            @Html.ActionLink("Approve", "approveTicket", new { id = item.Id }, new { @class = "btn btn-success btn-sm" }) <br />
-                                            @Html.ActionLink("Reject", "rejectTicket", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
-
-                                        }
-
-                                    </td>
-                                }
-                            </tr>
-                        }
-
-                    </table>
-            }
-
-    </div>
+</div>
 

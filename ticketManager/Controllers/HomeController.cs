@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ticketManager.Models;
-using DataLibrary;
-using static DataLibrary.logic.ticketProcessor;
+using static ticketManager.Models.ticketProcessor;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Dynamic;
 
 namespace ticketManager.Controllers
 {
@@ -16,7 +16,50 @@ namespace ticketManager.Controllers
     {
         public ActionResult Index()
         {
+           
+            Ticket ticket = new Ticket();
+            return View(ticket);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(Ticket ticket)
+        {
+            string getUserName = User.Identity.GetUserName();
+
+            if (ModelState.IsValid)
+            {
+                int rec = createTicket(Convert.ToString(ticket.Title), Convert.ToString(ticket.Description)
+                    , 0, getUserName);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult NewTicket()
+        {
+            return View();
+        }
+       
+
+
+
+        public ActionResult rejectTicket(int id)
+        {
+            RejectTicket(id);
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult approveTicket(int id)
+        {
+            ApproveTicket(id);
+            return RedirectToAction("Index");
+        }
+
+        public ViewResult listOfTicket()
+        {
             ViewBag.Massage = "Ticket List";
+            dynamic mymodel = new ExpandoObject();
             var data = LoadTickets();
             List<Ticket> tickets = new List<Ticket>();
 
@@ -28,20 +71,9 @@ namespace ticketManager.Controllers
                     Title = row.Title,
                     Description = row.Description,
                     Status = row.Status,
-                    addBy = !isManagerUser() ? "1" : row.addBy
-            }); 
+                    addBy =  row.addBy
+                });
             }
-           
-
-                if (!isManagerUser())
-                {
-                
-                    return View(tickets);
-                }
-           
-
-            
-
             return View(tickets);
         }
 
@@ -63,41 +95,6 @@ namespace ticketManager.Controllers
                 }
             }
             return false;
-        }
-
-        public ActionResult NewTicket()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult NewTicket(Ticket ticket)
-        {
-            string getUserName = User.Identity.GetUserName();
-            
-            if (ModelState.IsValid)
-            {
-                int rec = createTicket(Convert.ToString(ticket.Title), Convert.ToString(ticket.Description)
-                    , 0, getUserName);
-                //employeeProcessor.createEmployee(employee.userName, employee.fullName, employee.empType = 1);
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-
-
-        public ActionResult rejectTicket(int id)
-        {
-            RejectTicket(id);
-            return RedirectToAction("Index");
-        }
-
-
-        public ActionResult approveTicket(int id)
-        {
-            ApproveTicket(id);
-            return RedirectToAction("Index");
         }
 
 

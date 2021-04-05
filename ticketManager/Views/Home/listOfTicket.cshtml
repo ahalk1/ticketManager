@@ -1,0 +1,99 @@
+﻿@model IEnumerable<ticketManager.Models.Ticket>
+
+
+<div class="col-md-10">
+    <table class="table table-bordered">
+        <tr style="background:#d6d6d6">
+            <th>
+                <p>ID</p>
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+
+
+            @if (this.User.IsInRole("Manager"))
+            {
+                <th>
+                    <p>Employee Name</p>
+                </th>
+            }
+            <th>
+                <p>Status</p>
+            </th>
+
+            @if (this.User.IsInRole("Manager"))
+            {
+                <th> Actions</th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Description
+                </td>
+
+                @if (this.User.IsInRole("Manager"))
+                {
+                    <td>
+
+                        @item.addBy
+                    </td>
+                }
+                <td>
+
+                    @if (@item.Status == 2)
+                    {
+                        <p style="color:red">reject</p>
+                    }
+                    else
+                    {
+                        if (@item.Status == 1)
+                        {
+                            <p style="color:forestgreen">Approved</p>
+                        }
+                        else
+                        {
+                            <p>Sent</p>
+                        }
+                    }
+
+
+                </td>
+
+                @if (this.User.IsInRole("Manager"))
+                {
+                    <td style="width:15%">
+
+                        @if (@item.Status == 0)
+                        {
+
+
+                            @Html.ActionLink("Approve", "approveTicket", new { id = item.Id }, new { @class = "btn btn-success btn-sm btn-block" })
+                            @Html.ActionLink("Reject", "rejectTicket", new { id = item.Id }, new { @class = "btn btn-danger btn-sm btn-block" })
+
+                        }
+                        else
+                        {
+                            <p>No action required</p>
+                        }
+
+                    </td>
+                }
+
+            </tr>
+        }
+
+    </table>
+</div>

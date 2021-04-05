@@ -29,5 +29,7 @@ namespace ticketManager.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<ticketManager.Models.Ticket> Tickets { get; set; }
     }
 }
