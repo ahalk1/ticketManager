@@ -5,10 +5,10 @@ To run this project:
 - import **script.sql** to your sql server.
 - modify Web.config connectionStrings. Don't change the name, only the **connectionString**.
 
-The connectionStrings in the project (Azure sql server):
+The connectionStrings in the project (my local sql server):
 ``` Config
 <connectionStrings>
-    <add name="DefaultConnection" connectionString="Server=tcp:aspnet-ticketmanager-20210329014834dbserver.database.windows.net,1433;Initial Catalog=aspnet-ticketManager-20210329014834;Persist Security Info=False;User ID=ahmed;Password=Ab@12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" providerName="System.Data.SqlClient" />
+    <add name="DefaultConnection" connectionString="Data Source=(localdb)\ticketDB;Initial Catalog=ticketMDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" providerName="System.Data.SqlClient" />
   </connectionStrings>
   ```
 
